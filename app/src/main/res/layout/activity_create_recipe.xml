@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create_recipe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="mjdev.com.br.easyfitrecipes.view.CreateRecipeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:weightSum="1">
+
+        <ViewAnimator
+            android:id="@+id/va_gallery"
+            android:layout_width="124dp"
+            android:layout_height="wrap_content"
+            android:background="#ffc0c0c0"
+            android:animateFirstView="false"
+            android:layout_weight="0.67">
+            <ImageView
+                android:id="@+id/iv_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <ProgressBar
+                android:id="@+id/pb_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+        </ViewAnimator>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_more"
+            android:text="+"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/t_title"
+            android:textSize="@dimen/lay_textv_title"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_title"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/t_category"
+            android:textSize="@dimen/lay_textv_title"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:prompt="@string/category_prompt"
+            android:entries="@array/category_arrays"
+            android:layout_gravity="left"
+            android:spinnerMode="dialog"
+            android:drawSelectorOnTop="true"
+            android:id="@+id/sp_category"
+            android:gravity="left|start" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/t_ingredients"
+            android:textSize="@dimen/lay_textv_title"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_ingredients"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/t_description"
+            android:textSize="@dimen/lay_textv_title"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_description"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_register"
+        android:text="@string/bt_register"
+        android:layout_gravity="center"/>
+</LinearLayout>

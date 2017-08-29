@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EasyFitRecipes</string>
+    <string name="facebook_app_id">351209915307805</string>
+    <string name="fb_login_protocol_scheme">fb351209915307805</string>
+    <string name="google_maps_key">AIzaSyD0k7l1Vu_284Aji18-8qE--r3EJ2x1GcM</string>
+
+    <!-- MENU TITTLE-->
+    <string name="title_activity_login">Logar</string>
+    <string name="title_activity_menu">Receitas</string>
+    <string name="title_activity_about">Acerca de</string>
+    <string name="title_activity_createrecipe">Criar receitas</string>
+
+    <!-- MENU -->
+    <string name="titlemenu_home">Inicio</string>
+    <string name="titlemenu_createrecipe">Crear receita</string>
+    <string name="titlemenu_maps">Mapa</string>
+    <string name="titlemenu_share">Compartilhar</string>
+    <string name="titlemenu_about">Acerca de</string>
+    <string name="titlemenu_exit">Sair</string>
+
+    <!-- ACTIVITY MENU PRINCIPAL-->
+    <string name="tv_optbreakfast">Cafe da manhã</string>
+    <string name="tv_optlunch">Almoço</string>
+    <string name="tv_optdinner">Janta</string>
+    <string name="tv_optdessert">Sobremesa</string>
+
+    <!-- ACTIVITY ABOUT-->
+    <string name="about_design">Create Fit Recipe desde 2017, feito pela Luana Martinez</string>
+    <string name="about_version">Versão 0.1</string>
+
+    <!-- ACTIVITY CREATERECIPE-->
+    <string name="t_title">Título</string>
+    <string name="t_category">Categoria</string>
+    <string name="t_ingredients">Ingredientes</string>
+    <string name="t_description">Descrição</string>
+    <string name="category_prompt">Selecciona uma categoria</string>
+    <string name="bt_register">Cadastrar</string>
+    <string-array name="category_arrays">
+        <item>Cafe da manhã</item>
+        <item>Almoço</item>
+        <item>Janta</item>
+        <item>Sobremesa</item>
+    </string-array>
+
+    <string name="msgOk">A receita foi cadastrada com sucesso! </string>
+    <string name="msgError">Aconteceu um erro ao cadastrar a receita.</string>
+
+    <!-- ACTIVITY LOGIN-->
+    <string name="ht_user">Usuário</string>
+    <string name="ht_password">Senha</string>
+    <string name="bt_login">Entrar</string>
+    <string name="ck_keepconn">Manter logado</string>
+    <string name="toast_msgerror">O usuário ou senha está incorreto, por favor ingressar os dados novamente.</string>
+    <string name="ht_or">ou</string>
+
+    <!-- EXIT-->
+    <string name="exit_title">Sair</string>
+    <string name="exit_yes">Sim</string>
+    <string name="exit_cancel">Cancelar</string>
+    <string name="exit_message">Tem certeza que deseja sair?</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="navigation_drawer_open">Drawer Open</string>
+    <string name="navigation_drawer_close">Drawer Closed</string>
+
+    <!-- ACTIVITY MAP-->
+    <string name="map_position">Posição Atual</string>
+
+
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/titlemenu_home" />
+        <item
+            android:id="@+id/nav_createrecipe"
+            android:icon="@drawable/ic_menu_createrecipe"
+            android:title="@string/titlemenu_createrecipe" />
+        <item
+            android:id="@+id/nav_maps"
+            android:icon="@drawable/ic_menu_maps"
+            android:title="@string/titlemenu_maps" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/titlemenu_share" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_about"
+            android:title="@string/titlemenu_about" />
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_menu_exit"
+            android:title="@string/titlemenu_exit" />
+    </group>
+</menu>

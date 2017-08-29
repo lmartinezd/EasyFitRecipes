@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#CDDC39</color>
+    <color name="colorPrimaryDark">#9E9D24</color>
+    <color name="colorAccent">#FF6E40</color>
+
+
+    <color name="colorOptBrk">#2196F3</color>
+    <color name="colorOptLun">#FFC107</color>
+    <color name="colorOptDin">#4CAF50</color>
+    <color name="colorOptDes">#FF5722</color>
+
+    <color name="bg_buttonLogin">#FFC8D16F</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+</resources>
