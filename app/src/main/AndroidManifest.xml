@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="mjdev.com.br.easyfitrecipes">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,18 +14,16 @@
     <uses-permission android:name="android.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <provider
-        android:name="com.facebook.FacebookContentProvider"
-        android:authorities="com.facebook.app.FacebookContentProvider351209915307805"
-        android:exported="true" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:allowBackup="true"
+        android:name=".CustomApplication"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -62,9 +61,10 @@
             android:name=".view.ShareActivity"
             android:label="@string/title_activity_share"
             android:parentActivityName=".view.MenuActivity" />
-
-        <activity android:name=".view.SubmenuActivity"
+        <activity
+            android:name=".view.SubmenuActivity"
             android:parentActivityName=".view.MenuActivity" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -77,6 +77,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider351209915307805"
+            android:exported="true" />
     </application>
 
 </manifest>

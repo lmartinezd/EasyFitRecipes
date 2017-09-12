@@ -29,16 +29,16 @@
             android:id="@+id/tilUserTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="@dimen/layout_weight_ztwo"
-            android:maxWidth="15dp">
+            android:layout_weight="@dimen/layout_weight_ztwo">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tilUser"
                 android:hint="@string/ht_user"
+                android:maxLength="30"
                 android:maxLines="1"
-                android:maxLength="30"/>
+                android:inputType="text"/>
         </android.support.design.widget.TextInputLayout>
 
 

@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,17 +24,18 @@ import android.widget.ViewAnimator;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static android.content.Intent.ACTION_PICK;
-import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-import static com.squareup.picasso.Callback.EmptyCallback;
-
 import mjdev.com.br.easyfitrecipes.R;
 import mjdev.com.br.easyfitrecipes.database.DataBaseHelper;
 import mjdev.com.br.easyfitrecipes.model.Recipes;
+
+import static android.content.Intent.ACTION_PICK;
+import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+import static com.squareup.picasso.Callback.EmptyCallback;
 
 public class CreateRecipeActivity extends AppCompatActivity {
 
@@ -42,6 +48,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
     private Spinner spCategory;
     private String image;
     private Context context = this;
+    private boolean flagUPD = false;
 
     DataBaseHelper dbhelper;
 
@@ -49,39 +56,92 @@ public class CreateRecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
-        dbhelper = new DataBaseHelper(context);
 
         animator = (ViewAnimator) findViewById(R.id.va_gallery);
         imageView = (ImageView) findViewById(R.id.iv_gallery);
-        etTitle = (TextView)findViewById(R.id.et_title);
-        spCategory = (Spinner)findViewById(R.id.sp_category);
-        etIngredients = (TextView)findViewById(R.id.et_ingredients);
-        etDescription = (TextView)findViewById(R.id.et_description);
+        etTitle = (TextView) findViewById(R.id.et_title);
+        spCategory = (Spinner) findViewById(R.id.sp_category);
+        etIngredients = (TextView) findViewById(R.id.et_ingredients);
+        etDescription = (TextView) findViewById(R.id.et_description);
+        imageView.setDrawingCacheEnabled(true);
 
-        findViewById(R.id.bt_more).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
+        Button btMore = (Button)findViewById(R.id.bt_more);
+        btMore.setEnabled(true);
+
+        flagUPD = false;
+
+        if( getIntent().getExtras() != null) {
+            if (getIntent().getExtras().getString("ACTV").equals("UPD")) {
+
+                setTitle(R.string.title_activity_editrecipe);
+                Button btnRegister = (Button) findViewById(R.id.bt_register);
+                btnRegister.setText(R.string.msg_button_edit);
+                flagUPD = true;
+                if (getIntent().getExtras().getParcelable("OBJREC") != null) {
+                    clearAll();
+
+                    Recipes objRecipe = (Recipes)getIntent().getExtras().getParcelable("OBJREC");
+
+                    etTitle.setText(objRecipe.getTitle().toString());
+                    etIngredients.setText(objRecipe.getIngredients().toString());
+                    etDescription.setText(objRecipe.getDescription().toString());
+                    spCategory.setSelection( Integer.parseInt( objRecipe.getCategory().toString())-1);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(objRecipe.getImage(), 0, objRecipe.getImage().length);
+                    if (bitmap != null){
+                        imageView.setImageBitmap(bitmap);
+                    }else {
+                        imageView.setImageDrawable(ContextCompat
+                                .getDrawable(imageView.getContext(), R.drawable.notfound));
+                    }
+                }
+            }else{
+                clearAll();
+            }
+        }
+
+        dbhelper = new DataBaseHelper(context);
+
+        btMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent gallery = new Intent(ACTION_PICK, EXTERNAL_CONTENT_URI);
                 startActivityForResult(gallery, GALLERY_REQUEST);
             }
         });
 
         findViewById(R.id.bt_register).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
                 Toast toast = null;
                 Recipes objRecipes = new Recipes();
                 objRecipes.setTitle(etTitle.getText().toString());
-                objRecipes.setCategory(String.valueOf(spCategory.getSelectedItemPosition()));
+                objRecipes.setCategory(String.valueOf(spCategory.getSelectedItemPosition() + 1));
                 objRecipes.setIngredients(etIngredients.getText().toString());
                 objRecipes.setDescription(etDescription.getText().toString());
-                objRecipes.setImage(imageView.toString());
 
-                if (dbhelper.insertRecipes(objRecipes))
-                {
-                    toast.makeText(context,R.string.msgOk, Toast.LENGTH_LONG).show();
-                }else{
-                    toast.makeText(context,R.string.msgError, Toast.LENGTH_LONG).show();
+                Bitmap bitmap = imageView.getDrawingCache();
+
+                if (bitmap != null){
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    byte[] bitmapdata = stream.toByteArray();
+                    objRecipes.setImage(bitmapdata);
+
+                    if (flagUPD) {
+                        //atualizarrrrr
+//                        if (dbhelper.insertRecipes(objRecipes)) {
+//                            toast.makeText(context, R.string.msgOk, Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            toast.makeText(context, R.string.msgError, Toast.LENGTH_SHORT).show();
+//                        }
+                    }else{
+                        if (dbhelper.insertRecipes(objRecipes)) {
+                            toast.makeText(context, R.string.msgOk, Toast.LENGTH_SHORT).show();
+                        } else {
+                            toast.makeText(context, R.string.msgError, Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
-//                picassoImageTarget(context,image);
             }
         });
 
@@ -104,11 +164,12 @@ public class CreateRecipeActivity extends AppCompatActivity {
 //                .onlyScaleDown()
 //                .centerInside()
                 .into(imageView, new EmptyCallback() {
-            @Override public void onSuccess() {
-                // Index 0 is the image view.
-                animator.setDisplayedChild(0);
-            }
-        });
+                    @Override
+                    public void onSuccess() {
+                        // Index 0 is the image view.
+                        animator.setDisplayedChild(0);
+                    }
+                });
     }
 
     @Override
@@ -119,6 +180,14 @@ public class CreateRecipeActivity extends AppCompatActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void clearAll(){
+        imageView.setDrawingCacheEnabled(true);
+        etTitle.setText("");
+        spCategory.setSelection(0);
+        etIngredients.setText("");
+        etDescription.setText("");
     }
 
     private Target picassoImageTarget(Context context, final String imageName) {

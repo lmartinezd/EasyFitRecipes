@@ -42,9 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         final CheckBox chkKeepConn = (CheckBox) findViewById(R.id.ckKeepConn);
 
         if (getSession()){
+            finish();
             Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
             startActivity(intent);
-            finish();
         }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -63,12 +63,16 @@ public class LoginActivity extends AppCompatActivity {
                     editorSP.putBoolean("flag", chkKeepConn.isChecked());
                     editorSP.commit();
 
+                    finish();
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                     startActivity(intent);
-                    finish();
                 } else {
                     Log.d("*****TEST***", "onClick, RETORNO FALSE ");
                     Toast.makeText(getApplicationContext(), R.string.toast_msgerror, Toast.LENGTH_SHORT).show();
+
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -81,10 +85,10 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(LoginResult loginResult) {
+
                 finish();
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(intent);
-                finish();
             }
 
             @Override
@@ -99,6 +103,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+//    protected void getUserDetails(LoginResult loginResult) {
+//        GraphRequest data_request = GraphRequest.newMeRequest(
+//                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+//                    @Override
+//                    public void onCompleted(
+//                            JSONObject json_object,
+//                            GraphResponse response) {
+//                        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+//                        intent.putExtra("userProfile", json_object.toString());
+//                        startActivity(intent);
+//                    }
+//
+//                });
+//        Bundle permission_param = new Bundle();
+//        permission_param.putString("fields", "id,name,email,picture.width(120).height(120)");
+//        data_request.setParameters(permission_param);
+//        data_request.executeAsync();
+//
+//    }
 
     private boolean getSession() {
         boolean retorno=false;

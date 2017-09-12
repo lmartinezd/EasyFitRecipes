@@ -13,4 +13,7 @@
     <color name="bg_buttonLogin">#FFC8D16F</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+
+
+    <color name="recipe_title">#4c4c4c</color>
 </resources>

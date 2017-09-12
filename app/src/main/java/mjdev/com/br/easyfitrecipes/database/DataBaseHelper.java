@@ -140,7 +140,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             recipes.setCategory(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.CATEGORY)));
             recipes.setIngredients(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.INGREDIENTS)));
             recipes.setDescription(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.DESCRIPTION)));
-            recipes.setImage(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.IMAGE)));
+            recipes.setImage(cursor.getBlob(cursor.getColumnIndex(DataTables.RECIPES.IMAGE)));
         }else
             recipes = null;
 
@@ -151,7 +151,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     public List<Recipes> getRecipesCategory(String idCategory)
     {
-        List<Recipes> lRecipes = new ArrayList<Recipes>();
+        List<Recipes> lRecipes = new ArrayList<>();
 
         String[] columns = DataTables.SELECT_ALL_RECIPES;
         String whereClause = DataTables.RECIPES.CATEGORY + " = ? " ;
@@ -192,23 +192,32 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
         Cursor cursor = db.query(DataTables.RECIPES.TABLE, columns, whereClause, whereArgs, null, null, null);
 
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                Recipes recipe = new Recipes();
-                recipe.setIdRecipes(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.IDRECIPE)));
-                recipe.setTitle(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.TITLE)));
-                recipe.setCategory(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.CATEGORY)));
-                recipe.setIngredients(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.INGREDIENTS)));
-                recipe.setDescription(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.DESCRIPTION)));
-                recipe.setImage(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.IMAGE)));
-                // Adding contact to list
-                lRecipes.add(recipe);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
+        try {
+            if (cursor.getCount() > 0) {
 
+                // looping through all rows and adding to list
+                cursor.moveToFirst();
+
+                do {
+                    Recipes recipe = new Recipes();
+                    recipe.setIdRecipes(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.IDRECIPE)));
+                    recipe.setTitle(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.TITLE)));
+                    recipe.setCategory(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.CATEGORY)));
+                    recipe.setIngredients(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.INGREDIENTS)));
+                    recipe.setDescription(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.DESCRIPTION)));
+                    recipe.setImage(cursor.getBlob(cursor.getColumnIndex(DataTables.RECIPES.IMAGE)));
+                    // Adding contact to list
+                    lRecipes.add(recipe);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+
+            return lRecipes;
+
+        } catch (Exception e) {
+            Log.i("TAG", "getRecipesCategory: " + e.getMessage());
+        }
         return lRecipes;
     }
 
@@ -230,6 +239,48 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             return true;
         } catch (Exception e) {
             System.out.println("ERRO INSERT RECIPES " + e.getMessage());
+            db.close();
+            return false;
+        }
+    }
+
+
+    public boolean updateRecipe(Recipes recipe){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+            ContentValues cntValues = new ContentValues();
+
+            cntValues.put(DataTables.RECIPES.TITLE, recipe.getTitle());
+            cntValues.put(DataTables.RECIPES.CATEGORY, recipe.getCategory());
+            cntValues.put(DataTables.RECIPES.INGREDIENTS, recipe.getIngredients());
+            cntValues.put(DataTables.RECIPES.DESCRIPTION, recipe.getDescription());
+            cntValues.put(DataTables.RECIPES.IMAGE, recipe.getImage());
+
+            long idRecipe = db.insertOrThrow(DataTables.RECIPES.TABLE, null, cntValues);
+
+            db.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("ERRO UPDATE RECIPES " + e.getMessage());
+            db.close();
+            return false;
+        }
+    }
+
+    public boolean deleteRecipe(String idRecipe){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+            String whereClause = "idRecipe=?";
+            String[] whereArgs = new String[] { String.valueOf(idRecipe) };
+
+            db.delete(DataTables.RECIPES.TABLE, whereClause, whereArgs);
+
+            db.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("ERRO DELETE RECIPES " + e.getMessage());
             db.close();
             return false;
         }
