@@ -20,7 +20,6 @@ public class SubmenuActivity extends AppCompatActivity {
     DataBaseHelper dbhelper;
     private MyRecyclerViewAdapter mAdapter;
     private RecyclerView rvMenu;
-    private Recipes recipes = new Recipes();
     private List<Recipes> lRecipes = new ArrayList<>();
 
     @Override
@@ -31,17 +30,20 @@ public class SubmenuActivity extends AppCompatActivity {
         dbhelper = new DataBaseHelper(getBaseContext());
 
         rvMenu = (RecyclerView)findViewById(R.id.rvMenuBreakfast);
-        mAdapter = new MyRecyclerViewAdapter(lRecipes);
+        mAdapter = new MyRecyclerViewAdapter(this, lRecipes);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+
         rvMenu.setLayoutManager(layoutManager);
         rvMenu.setHasFixedSize(true);
         rvMenu.setItemAnimator(new DefaultItemAnimator());
         rvMenu.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
         rvMenu.setAdapter(mAdapter);
 
-        prepareUsersData(getIntent().getStringExtra("option"));
+        String option = getIntent().getStringExtra("option");
+        prepareUsersData(option);
 
-        switch( lRecipes.get(0).getCategory()){
+        switch( option ){
             case "1":
                 this.setTitle(getString(R.string.tv_optbreakfast));
                 break;
@@ -57,13 +59,16 @@ public class SubmenuActivity extends AppCompatActivity {
             default:
                 break;
         }
-
     }
 
     private void prepareUsersData(String idCat) {
-        List<Recipes> lrecipes = dbhelper.getRecipesCategory(idCat);
-        for (Recipes x : lrecipes){
-            lRecipes.add(x);
+        List<Recipes> listrecipes = dbhelper.getRecipesCategory(idCat);
+
+        if (!listrecipes.isEmpty())
+        {
+            for (Recipes x : listrecipes) {
+                lRecipes.add(x);
+            }
         }
         mAdapter.notifyDataSetChanged();
     }

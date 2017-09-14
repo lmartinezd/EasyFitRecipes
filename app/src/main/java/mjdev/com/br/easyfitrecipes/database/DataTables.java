@@ -51,6 +51,6 @@ public class DataTables {
             " category INTEGER, " +
             " ingredients varchar(200), " +
             " description varchar(500), " +
-            " image varchar(500), " +
+            " image BLOB, " +
             " PRIMARY KEY(idRecipe ASC))";
 }

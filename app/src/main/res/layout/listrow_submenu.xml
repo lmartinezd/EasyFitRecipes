@@ -2,9 +2,15 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:elevation="3dp"
+    android:layout_gravity="center"
+    cardview:cardCornerRadius="0dp"
+    cardview:cardElevation="3dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,22 +22,56 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             tools:src="@mipmap/ic_launcher"
-            android:id="@+id/ivOPTImgDish"/>
+            android:scaleType="centerCrop"
+            android:id="@+id/ivOPTImgDish"
+            android:layout_marginTop="5dp"
+            android:padding="2dip"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvOPTTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/recipe_title_padding"
+                android:paddingRight="@dimen/recipe_title_padding"
+                android:paddingTop="@dimen/recipe_title_padding"
+                android:textColor="@color/recipe_title"
+                android:textSize="@dimen/recipe_title"
+                android:textStyle="bold"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/overflow"
+                android:layout_width="@dimen/ic_recipe_overflow_width"
+                android:layout_height="@dimen/ic_recipe_overflow_height"
+                android:paddingRight="@dimen/recipe_title_padding"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/ic_recipe_overflow_margin_top"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_dots"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvOPTTitle"  />
+            android:layout_marginTop="2dp"
+            android:id="@+id/tvOPTIngredients"
+            android:paddingLeft="@dimen/recipe_title_padding"
+            android:paddingRight="@dimen/recipe_title_padding"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvOPTIngredients"/>
+            android:id="@+id/tvOPTDescription"
+            android:paddingLeft="@dimen/recipe_title_padding"
+            android:paddingRight="@dimen/recipe_title_padding"
+            android:layout_marginBottom="@dimen/ic_recipe_overflow_margin_bottom"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvOPTDescription"/>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

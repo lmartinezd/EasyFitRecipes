@@ -6,12 +6,12 @@
     <string name="fb_login_protocol_scheme">fb351209915307805</string>
     <string name="google_maps_key">AIzaSyD0k7l1Vu_284Aji18-8qE--r3EJ2x1GcM</string>
 
-    <!-- MENU TITTLE-->
+    <!-- MENU TITLE-->
     <string name="title_activity_login">Login</string>
     <string name="title_activity_menu">Recipes</string>
     <string name="title_activity_about">About</string>
     <string name="title_activity_createrecipe">Create a recipe</string>
-    <string name="title_activity_language">Language</string>
+    <string name="title_activity_share">Share</string>
 
     <!-- MENU -->
     <string name="titlemenu_home">Home</string>
@@ -28,8 +28,10 @@
     <string name="tv_optdessert">Dessert</string>
 
     <!-- ACTIVITY ABOUT-->
-    <string name="about_design">Create Fit Recipe since 2017, by Luana Martinez</string>
-    <string name="about_version">Version 0.1</string>
+    <string name="about_design">EasyFitRecipe</string>
+    <string name="about_version">Version 1.0</string>
+    <string name="about_versiontext">©2017 by Luana Martinez \nAll rights reserverd.</string>
+    <string name="about_contact">Number contact</string>
 
     <!-- ACTIVITY CREATERECIPE-->
     <string name="t_title">Title</string>
@@ -44,9 +46,11 @@
         <item>Dinner</item>
         <item>Dessert</item>
     </string-array>
+    <string name="msg_button_edit">Modify</string>
+    <string name="title_activity_editrecipe">Modify a recipe</string>
 
-    <string name="msgOk">Successfully register</string>
-    <string name="msgError">An error has occured trying to register the recipe.</string>
+    <string name="insert_msgOk">Successfully register</string>
+    <string name="insert_msgError">An error has occured trying to register the recipe.</string>
 
     <!-- ACTIVITY LOGIN-->
     <string name="ht_user">User</string>
@@ -58,8 +62,8 @@
 
     <!-- EXIT-->
     <string name="exit_title">Exit</string>
-    <string name="exit_yes">Yes</string>
-    <string name="exit_cancel">Cancel</string>
+    <string name="exit_yes">SAIR</string>
+    <string name="exit_cancel">CANCEL</string>
     <string name="exit_message">Are you sure you want to quit?</string>
 
     <string name="action_settings">Settings</string>
@@ -69,6 +73,18 @@
     <!-- ACTIVITY MAP-->
     <string name="map_position">Current Position</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_share">ShareActivity</string>
+
+    <string name="action_edit">Edit</string>
+    <string name="action_remove">Remove</string>
+
+    <!-- SUBMENU RECYCLER VIEW-->
+    <string name="submenu_msg_title">Are you sure you wany to delete the recipe?</string>
+    <string name="submenu_rec_yes">DELETE</string>
+    <string name="submenu_rec_cancel">CANCEL</string>
+    <string name="msg_submenu_ERR">Oops! It\'s not you. A server error, please try again!</string>
+    <string name="msg_submenu_editOK">The recipe has registered with success.</string>
+    <string name="msg_submenu_removeOK">The recipe has deleted with success.</string>
+    <string name="update_msgOk">Successfully updated</string>
+    <string name="update_msgError">An error has ocurred trying to update the receipe</string>
 
 </resources>

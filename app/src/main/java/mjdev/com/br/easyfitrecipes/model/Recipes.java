@@ -14,45 +14,46 @@ public class Recipes implements Parcelable {
     public String category;
     public String ingredients;
     public String description;
-    public String image;
+    public byte[] image;
 
-    public Recipes() {
+    public Recipes() {}
+
+    public Recipes(Parcel in) {
+        this.idRecipes = in.readString();
+        this.title = in.readString();
+        this.category = in.readString();
+        this.ingredients = in.readString();
+        this.description = in.readString();
+        this.image = in.createByteArray();
     }
-
-    protected Recipes(Parcel in) {
-        setIdRecipes(in.readString());
-        setTitle(in.readString());
-        setCategory(in.readString());
-        setIngredients(in.readString());
-        setDescription(in.readString());
-        setImage(in.readString());
-    }
-
-    public static final Creator<Recipes> CREATOR = new Creator<Recipes>() {
-        @Override
-        public Recipes createFromParcel(Parcel in) {
-            return new Recipes(in);
-        }
-
-        @Override
-        public Recipes[] newArray(int size) {
-            return new Recipes[size];
-        }
-    };
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
+    public int describeContents() { return 0; }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(getIdRecipes());
-        dest.writeString(getTitle());
-        dest.writeString(getCategory());
-        dest.writeString(getIngredients());
-        dest.writeString(getDescription());
-        dest.writeString(getImage());
+        dest.writeString(this.idRecipes);
+        dest.writeString(this.title);
+        dest.writeString(this.category);
+        dest.writeString(this.ingredients);
+        dest.writeString(this.description);
+        dest.writeByteArray(this.image);
+    }
+
+    public static final Parcelable.Creator<Recipes> CREATOR = new Parcelable.Creator<Recipes>() {
+        @Override
+        public Recipes createFromParcel(Parcel source) {return new Recipes(source);}
+
+        @Override
+        public Recipes[] newArray(int size) {return new Recipes[size];}
+    };
+
+    public String getIdRecipes() {
+        return idRecipes;
+    }
+
+    public void setIdRecipes(String idRecipes) {
+        this.idRecipes = idRecipes;
     }
 
     public String getTitle() {
@@ -87,15 +88,11 @@ public class Recipes implements Parcelable {
         this.description = description;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
-
-    public String getIdRecipes() { return idRecipes;  }
-
-    public void setIdRecipes(String idRecipes) { this.idRecipes = idRecipes; }
 }
