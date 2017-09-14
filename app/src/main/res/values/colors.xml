@@ -14,6 +14,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
 
+    <color name="maps_bg_message">#FFC8D16F</color>
 
     <color name="recipe_title">#4c4c4c</color>
 </resources>

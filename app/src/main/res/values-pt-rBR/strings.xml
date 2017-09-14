@@ -50,8 +50,8 @@
     <string name="msg_button_edit">Atualizar</string>
     <string name="title_activity_editrecipe">Atualizar a receita</string>
 
-    <string name="msgOk">A receita foi cadastrada com sucesso! </string>
-    <string name="msgError">Aconteceu um erro ao cadastrar a receita.</string>
+    <string name="insert_msgOk">A receita foi cadastrada com sucesso! </string>
+    <string name="insert_msgError">Aconteceu um erro ao cadastrar a receita.</string>
 
     <!-- ACTIVITY LOGIN-->
     <string name="ht_user">Usuário</string>
@@ -85,4 +85,7 @@
     <string name="msg_submenu_editOK">A receita foi atualizado com sucesso.</string>
     <string name="msg_submenu_removeOK">A  receita foi removida com sucesso.</string>
     <string name="title_activity_maps">Mapa</string>
+    <string name="update_msgOk">A receita foi atualizada com sucesso</string>
+    <string name="update_msgError">Aconteceu um erro ao atualizar a receita</string>
+    <string name="maps_message">As melhores receitas\\nfeitas por voçês !</string>
 </resources>

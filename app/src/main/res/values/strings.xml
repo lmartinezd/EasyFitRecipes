@@ -49,8 +49,8 @@
     <string name="msg_button_edit">Modify</string>
     <string name="title_activity_editrecipe">Modify a recipe</string>
 
-    <string name="msgOk">Successfully register</string>
-    <string name="msgError">An error has occured trying to register the recipe.</string>
+    <string name="insert_msgOk">Successfully register</string>
+    <string name="insert_msgError">An error has occured trying to register the recipe.</string>
 
     <!-- ACTIVITY LOGIN-->
     <string name="ht_user">User</string>
@@ -84,5 +84,8 @@
     <string name="msg_submenu_ERR">Oops! It\'s not you. A server error, please try again!</string>
     <string name="msg_submenu_editOK">The recipe has registered with success.</string>
     <string name="msg_submenu_removeOK">The recipe has deleted with success.</string>
+    <string name="update_msgOk">Successfully updated</string>
+    <string name="update_msgError">An error has ocurred trying to update the receipe</string>
+    <string name="maps_message">The easiest and tastiest \\n recipes ever !</string>
 
 </resources>

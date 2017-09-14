@@ -5,8 +5,6 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
@@ -46,9 +44,10 @@ public class CreateRecipeActivity extends AppCompatActivity {
     private ViewAnimator animator;
     private TextView etTitle, etDescription, etIngredients;
     private Spinner spCategory;
-    private String image;
+    private String image, strIDRecipe;
     private Context context = this;
     private boolean flagUPD = false;
+    private Button btMore, btRegister;
 
     DataBaseHelper dbhelper;
 
@@ -65,9 +64,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
         etDescription = (TextView) findViewById(R.id.et_description);
         imageView.setDrawingCacheEnabled(true);
 
-        Button btMore = (Button)findViewById(R.id.bt_more);
-        btMore.setEnabled(true);
+        btMore = (Button)findViewById(R.id.bt_more);
+        btRegister = (Button)findViewById(R.id.bt_register);
 
+        btMore.setFocusable(true);
+        btRegister.setEnabled(true);
         flagUPD = false;
 
         if( getIntent().getExtras() != null) {
@@ -82,6 +83,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
                     Recipes objRecipe = (Recipes)getIntent().getExtras().getParcelable("OBJREC");
 
+                    strIDRecipe = objRecipe.getIdRecipes().toString();
                     etTitle.setText(objRecipe.getTitle().toString());
                     etIngredients.setText(objRecipe.getIngredients().toString());
                     etDescription.setText(objRecipe.getDescription().toString());
@@ -109,7 +111,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.bt_register).setOnClickListener(new View.OnClickListener() {
+        btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast toast = null;
@@ -118,6 +120,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 objRecipes.setCategory(String.valueOf(spCategory.getSelectedItemPosition() + 1));
                 objRecipes.setIngredients(etIngredients.getText().toString());
                 objRecipes.setDescription(etDescription.getText().toString());
+                objRecipes.setIdRecipes(strIDRecipe);
 
                 Bitmap bitmap = imageView.getDrawingCache();
 
@@ -128,17 +131,18 @@ public class CreateRecipeActivity extends AppCompatActivity {
                     objRecipes.setImage(bitmapdata);
 
                     if (flagUPD) {
-                        //atualizarrrrr
-//                        if (dbhelper.insertRecipes(objRecipes)) {
-//                            toast.makeText(context, R.string.msgOk, Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            toast.makeText(context, R.string.msgError, Toast.LENGTH_SHORT).show();
-//                        }
+                        if (dbhelper.updateRecipe(objRecipes)) {
+                            toast.makeText(context, R.string.update_msgOk, Toast.LENGTH_SHORT).show();
+                            btRegister.setEnabled(false);
+                        } else {
+                            toast.makeText(context, R.string.update_msgError, Toast.LENGTH_SHORT).show();
+                        }
                     }else{
                         if (dbhelper.insertRecipes(objRecipes)) {
-                            toast.makeText(context, R.string.msgOk, Toast.LENGTH_SHORT).show();
+                            toast.makeText(context, R.string.insert_msgOk, Toast.LENGTH_SHORT).show();
+                            btRegister.setEnabled(false);
                         } else {
-                            toast.makeText(context, R.string.msgError, Toast.LENGTH_SHORT).show();
+                            toast.makeText(context, R.string.insert_msgError, Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
