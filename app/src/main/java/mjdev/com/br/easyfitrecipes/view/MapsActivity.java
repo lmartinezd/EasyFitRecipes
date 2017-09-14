@@ -139,7 +139,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        MarkerOptions markerOptions = new MarkerOptions();
 //        markerOptions.position(latLng)
 //            .title(getString(R.string.app_name))
-//            .snippet(getString(R.string.maps_message));
+//            .snippet(getString(R.string.app_name));
 
 
         IconGenerator iconFactory = new IconGenerator(mContext);

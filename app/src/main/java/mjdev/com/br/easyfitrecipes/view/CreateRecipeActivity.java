@@ -114,6 +114,12 @@ public class CreateRecipeActivity extends AppCompatActivity {
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (validateText()){
+                    etTitle.setError("validar campo");
+//                    break
+                }
+
+
                 Toast toast = null;
                 Recipes objRecipes = new Recipes();
                 objRecipes.setTitle(etTitle.getText().toString());
@@ -155,6 +161,10 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 loadImage();
             }
         }
+    }
+
+    private boolean validateText(){
+        return true;
     }
 
     private void loadImage() {

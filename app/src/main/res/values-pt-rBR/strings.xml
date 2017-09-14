@@ -9,7 +9,7 @@
     <!-- MENU TITLE-->
     <string name="title_activity_login">Logar</string>
     <string name="title_activity_menu">Receitas</string>
-    <string name="title_activity_about">Sobre o EasyFitRecipe</string>
+    <string name="title_activity_about">Sobre</string>
     <string name="title_activity_createrecipe">Criar receitas</string>
     <string name="title_activity_share">Compartilhar</string>
 
@@ -18,7 +18,7 @@
     <string name="titlemenu_createrecipe">Crear receita</string>
     <string name="titlemenu_maps">Mapa</string>
     <string name="titlemenu_share">Compartilhar</string>
-    <string name="titlemenu_about">Acerca de</string>
+    <string name="titlemenu_about">Sobre</string>
     <string name="titlemenu_exit">Sair</string>
 
     <!-- ACTIVITY MENU PRINCIPAL-->
@@ -87,5 +87,4 @@
     <string name="title_activity_maps">Mapa</string>
     <string name="update_msgOk">A receita foi atualizada com sucesso</string>
     <string name="update_msgError">Aconteceu um erro ao atualizar a receita</string>
-    <string name="maps_message">As melhores receitas\\nfeitas por voçês !</string>
 </resources>
