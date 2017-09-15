@@ -12,15 +12,12 @@
     android:background="@drawable/bg_layout_about"
     tools:context="mjdev.com.br.easyfitrecipes.view.AboutActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         android:text="@string/about_design"/>
 
     <TextView
@@ -29,6 +26,13 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/about_layoutMargin"
         android:text="@string/about_version"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/vegetableslogo"
+        android:layout_gravity="center"
+        />
 
     <TextView
         android:layout_width="wrap_content"

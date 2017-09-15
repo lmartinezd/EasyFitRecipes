@@ -137,7 +137,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 case R.id.action_edit:
                     Intent intent = new Intent(mContext, CreateRecipeActivity.class);
                         intent.putExtra("ACTV","UPD");
-                        intent.putExtra("OBJREC", lRecipes.get(position));
+                        intent.putExtra("IDRECP", lRecipes.get(position).getIdRecipes().toString());
                         mContext.startActivity(intent);
                     return true;
 

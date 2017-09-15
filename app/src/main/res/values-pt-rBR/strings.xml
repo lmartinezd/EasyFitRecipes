@@ -28,7 +28,7 @@
     <string name="tv_optdessert">Sobremesa</string>
 
     <!-- ACTIVITY ABOUT-->
-    <string name="about_design">EasyFitRecipe</string>
+    <string name="about_design">easyfitrecipes</string>
     <string name="about_version">Versão 1.0</string>
     <string name="about_versiontext">©2017 por Luana Martinez \nTodos os direitos reservados.</string>
     <string name="about_contact">Número de contato</string>
@@ -87,4 +87,11 @@
     <string name="title_activity_maps">Mapa</string>
     <string name="update_msgOk">A receita foi atualizada com sucesso</string>
     <string name="update_msgError">Aconteceu um erro ao atualizar a receita</string>
+    <string name="err_msgtextview_title">Informe o titulo!</string>
+    <string name="err_msgtextview_ingr">Informe o(s) ingrediente(s)!</string>
+    <string name="err_msgtextview_desc">Informe  a descrição!</string>
+    <string name="err_msgtextview">Por favor preencher os campos em branco.</string>
+    <string name="err_msgimageview">Inserir uma foto! \n</string>
+    <string name="share_msg_ok">Publicação postada com sucesso!</string>
+    <string name="layout_share_msg">Bem-vindo ao easyfitrecipes ! \n\nPor favor! Nos ajuda a compartilhar nosso aplicativo para que nossa comunidade de receitas seja utilizada pelo mundo todo!</string>
 </resources>

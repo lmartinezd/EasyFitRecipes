@@ -32,7 +32,7 @@ public class AboutActivity extends AppCompatActivity {
 
     public void makeCall(){
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:+551150802002"));
+        callIntent.setData(Uri.parse(getString(R.string.number_cellphone)));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {

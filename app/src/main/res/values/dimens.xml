@@ -10,6 +10,7 @@
     <dimen name="lay_textv_title">11dp</dimen>
 
     <dimen name="about_layoutMargin">7dp</dimen>
+    <dimen name="short_top">5dp</dimen>
 
     <item name="layout_weight_ztwo" format="float" type="dimen">0.2</item>
     <item name="layout_weight_zeight" format="float" type="dimen">0.8</item>

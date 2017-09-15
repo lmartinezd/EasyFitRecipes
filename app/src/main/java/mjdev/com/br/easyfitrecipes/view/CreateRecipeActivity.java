@@ -3,14 +3,19 @@ package mjdev.com.br.easyfitrecipes.view;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,6 +32,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import android.Manifest;
 import mjdev.com.br.easyfitrecipes.R;
 import mjdev.com.br.easyfitrecipes.database.DataBaseHelper;
 import mjdev.com.br.easyfitrecipes.model.Recipes;
@@ -39,6 +45,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
     private static final int GALLERY_REQUEST = 9391;
     private static final String KEY_IMAGE = "com.example.picasso:image";
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 11;
 
     private ImageView imageView;
     private ViewAnimator animator;
@@ -46,7 +53,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
     private Spinner spCategory;
     private String image, strIDRecipe;
     private Context context = this;
-    private boolean flagUPD = false;
+    private boolean flagUPD, isValidate;
     private Button btMore, btRegister;
 
     DataBaseHelper dbhelper;
@@ -55,6 +62,12 @@ public class CreateRecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkReadStoragePermission();
+        }
+
+        dbhelper = new DataBaseHelper(context);
 
         animator = (ViewAnimator) findViewById(R.id.va_gallery);
         imageView = (ImageView) findViewById(R.id.iv_gallery);
@@ -70,6 +83,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
         btMore.setFocusable(true);
         btRegister.setEnabled(true);
         flagUPD = false;
+        isValidate = true;
 
         if( getIntent().getExtras() != null) {
             if (getIntent().getExtras().getString("ACTV").equals("UPD")) {
@@ -78,10 +92,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 Button btnRegister = (Button) findViewById(R.id.bt_register);
                 btnRegister.setText(R.string.msg_button_edit);
                 flagUPD = true;
-                if (getIntent().getExtras().getParcelable("OBJREC") != null) {
+
+                if (getIntent().getExtras().getString("IDRECP") != "") {
                     clearAll();
 
-                    Recipes objRecipe = (Recipes)getIntent().getExtras().getParcelable("OBJREC");
+                    Recipes objRecipe = dbhelper.getRecipe(getIntent().getExtras().getString("IDRECP").toString());
 
                     strIDRecipe = objRecipe.getIdRecipes().toString();
                     etTitle.setText(objRecipe.getTitle().toString());
@@ -101,8 +116,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
             }
         }
 
-        dbhelper = new DataBaseHelper(context);
-
         btMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,43 +127,68 @@ public class CreateRecipeActivity extends AppCompatActivity {
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateText()){
-                    etTitle.setError("validar campo");
-//                    break
+                String msgImgErr = "";
+
+                if(imageView.getDrawable() == null) {
+                    msgImgErr = getString(R.string.err_msgimageview);
+                    isValidate = false;
                 }
 
+                if(TextUtils.isEmpty(etTitle.getText().toString())) {
+                    etTitle.setError(getString(R.string.err_msgtextview_title));
+                    isValidate = false;
+                } else
+                    etTitle.setError(null);
+
+                if(TextUtils.isEmpty(etIngredients.getText().toString())) {
+                    etIngredients.setError(getString(R.string.err_msgtextview_ingr));
+                    isValidate = false;
+                } else
+                    etIngredients.setError(null);
+
+                if(TextUtils.isEmpty(etDescription.getText().toString())) {
+                    etDescription.setError(getString(R.string.err_msgtextview_desc));
+                    isValidate = false;
+                }else
+                    etDescription.setError(null);
 
                 Toast toast = null;
-                Recipes objRecipes = new Recipes();
-                objRecipes.setTitle(etTitle.getText().toString());
-                objRecipes.setCategory(String.valueOf(spCategory.getSelectedItemPosition() + 1));
-                objRecipes.setIngredients(etIngredients.getText().toString());
-                objRecipes.setDescription(etDescription.getText().toString());
-                objRecipes.setIdRecipes(strIDRecipe);
 
-                Bitmap bitmap = imageView.getDrawingCache();
+                if (isValidate){
+                    Recipes objRecipes = new Recipes();
+                    objRecipes.setTitle(etTitle.getText().toString());
+                    objRecipes.setCategory(String.valueOf(spCategory.getSelectedItemPosition() + 1));
+                    objRecipes.setIngredients(etIngredients.getText().toString());
+                    objRecipes.setDescription(etDescription.getText().toString());
+                    objRecipes.setIdRecipes(strIDRecipe);
 
-                if (bitmap != null){
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                    byte[] bitmapdata = stream.toByteArray();
-                    objRecipes.setImage(bitmapdata);
+                    Bitmap bitmap = imageView.getDrawingCache();
 
-                    if (flagUPD) {
-                        if (dbhelper.updateRecipe(objRecipes)) {
-                            toast.makeText(context, R.string.update_msgOk, Toast.LENGTH_SHORT).show();
-                            btRegister.setEnabled(false);
-                        } else {
-                            toast.makeText(context, R.string.update_msgError, Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        if (dbhelper.insertRecipes(objRecipes)) {
-                            toast.makeText(context, R.string.insert_msgOk, Toast.LENGTH_SHORT).show();
-                            btRegister.setEnabled(false);
-                        } else {
-                            toast.makeText(context, R.string.insert_msgError, Toast.LENGTH_SHORT).show();
+                    if (bitmap != null){
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                        byte[] bitmapdata = stream.toByteArray();
+                        objRecipes.setImage(bitmapdata);
+
+                        if (flagUPD) {
+                            if (dbhelper.updateRecipe(objRecipes)) {
+                                toast.makeText(context, R.string.update_msgOk, Toast.LENGTH_SHORT).show();
+                                btRegister.setEnabled(false);
+                            } else {
+                                toast.makeText(context, R.string.update_msgError, Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            if (dbhelper.insertRecipes(objRecipes)) {
+                                toast.makeText(context, R.string.insert_msgOk, Toast.LENGTH_SHORT).show();
+                                btRegister.setEnabled(false);
+                            } else {
+                                toast.makeText(context, R.string.insert_msgError, Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
+                }else {
+                    isValidate = true;
+                    toast.makeText(context, msgImgErr + getString(R.string.err_msgtextview), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -161,10 +199,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 loadImage();
             }
         }
-    }
-
-    private boolean validateText(){
-        return true;
     }
 
     private void loadImage() {
@@ -205,11 +239,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
     }
 
     private Target picassoImageTarget(Context context, final String imageName) {
-        Log.d("picassoImageTarget", " picassoImageTarget");
         ContextWrapper cw = new ContextWrapper(context);
         String imageDir = Environment.getExternalStorageDirectory().getPath();
+        Log.d("picassoImageTarget", " picassoImageTarget" + imageDir);
 
-        final File directory = cw.getDir(imageDir, Context.MODE_PRIVATE); // path to /data/data/yourapp/app_imageDir
+        final File directory = cw.getDir(imageDir, Context.MODE_PRIVATE);
         return new Target() {
             @Override
             public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -246,5 +280,47 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 }
             }
         };
+    }
+
+    public boolean checkReadStoragePermission(){
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+//    @Override
+//    public void onBackPressed() {
+//        CreateRecipeActivity.this.finish();
+//    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_BACK:
+                    finish();
+                    return true;
+            }
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

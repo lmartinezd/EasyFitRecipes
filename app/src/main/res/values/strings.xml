@@ -28,7 +28,7 @@
     <string name="tv_optdessert">Dessert</string>
 
     <!-- ACTIVITY ABOUT-->
-    <string name="about_design">EasyFitRecipe</string>
+    <string name="about_design">easyfitrecipes</string>
     <string name="about_version">Version 1.0</string>
     <string name="about_versiontext">©2017 by Luana Martinez \nAll rights reserverd.</string>
     <string name="about_contact">Number contact</string>
@@ -86,5 +86,14 @@
     <string name="msg_submenu_removeOK">The recipe has deleted with success.</string>
     <string name="update_msgOk">Successfully updated</string>
     <string name="update_msgError">An error has ocurred trying to update the receipe</string>
+    <string name="err_msgtextview_title">The value title cannot be empty.</string>
+    <string name="err_msgtextview_ingr">The value ingredients cannot be empty.</string>
+    <string name="err_msgtextview_desc">The value description cannot be empty.</string>
+    <string name="err_msgtextview">Please fill in all required fields.</string>
+    <string name="number_cellphone" translatable="false">tel:+551150802002</string>
+    <string name="err_msgimageview">Image can\'t be blank \n</string>
+    <string name="url_web" translatable="false">https://github.com/lmartinezd/EasyFitRecipes</string>
+    <string name="share_msg_ok">Successfully published !</string>
+    <string name="layout_share_msg">Hello ! welcome to easyfitrecipes! \n\nPlease share this cute app :) !</string>
 
 </resources>

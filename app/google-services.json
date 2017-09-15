@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "491110198953",
+    "firebase_url": "https://easyfitrecipes-0bf.firebaseio.com",
+    "project_id": "easyfitrecipes-0bf",
+    "storage_bucket": "easyfitrecipes-0bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491110198953:android:96ec92723689ab08",
+        "android_client_info": {
+          "package_name": "mjdev.com.br.easyfitrecipes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491110198953-0kmfum885qcqqm80ufm3892ahmba5p4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mjdev.com.br.easyfitrecipes",
+            "certificate_hash": "cc149de8d60a9598709a4d6994023ac1a672f4a3"
+          }
+        },
+        {
+          "client_id": "491110198953-e5k5ecvcpgghcmkdrir7ifrmpjj84jks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmmV05dAPcvzcS7f84mXtospsTgsiQDnE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491110198953-e5k5ecvcpgghcmkdrir7ifrmpjj84jks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

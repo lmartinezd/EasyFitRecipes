@@ -1,6 +1,5 @@
 package mjdev.com.br.easyfitrecipes.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,14 +41,14 @@ public class ShareActivity extends AppCompatActivity {
                 //test
                 if (ShareDialog.canShow(ShareLinkContent.class)) {
                     ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                            .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
+                            .setContentUrl(Uri.parse(getString(R.string.url_web)))
                             .build();
 
                     shareDialog.show(linkContent, ShareDialog.Mode.AUTOMATIC);
                     shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
                         @Override
                         public void onSuccess(Sharer.Result result) {
-                            Toast.makeText(ShareActivity.this,"Postada com sucesso", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ShareActivity.this,R.string.share_msg_ok, Toast.LENGTH_SHORT).show();
                         }
 
                         @Override

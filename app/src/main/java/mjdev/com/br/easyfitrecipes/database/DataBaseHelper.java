@@ -125,14 +125,16 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         return user;
     }
 
-    public Recipes getRecipes()
+    public Recipes getRecipe(String idRecipe)
     {
+        SQLiteDatabase db = this.getReadableDatabase();
         Recipes recipes =new Recipes();
 
         String[] columns = DataTables.SELECT_ALL_RECIPES;
-        SQLiteDatabase db = this.getReadableDatabase();
+        String whereClause = DataTables.RECIPES.IDRECIPE + " = ? " ;
+        String[] whereArgs = new String[]{idRecipe};
 
-        Cursor cursor = db.query(DataTables.RECIPES.TABLE, columns,null,null,null,null,null);
+        Cursor cursor = db.query(DataTables.RECIPES.TABLE, columns, whereClause, whereArgs, null, null, null);
         if(cursor.moveToFirst())
         {
             recipes.setIdRecipes(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.IDRECIPE)));
@@ -142,7 +144,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             recipes.setDescription(cursor.getString(cursor.getColumnIndex(DataTables.RECIPES.DESCRIPTION)));
             recipes.setImage(cursor.getBlob(cursor.getColumnIndex(DataTables.RECIPES.IMAGE)));
         }else
-            recipes = null;
+            recipes = new Recipes();
 
         cursor.close();
         db.close();
@@ -158,19 +160,6 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         String[] whereArgs = new String[]{idCategory};
 
         SQLiteDatabase db = this.getReadableDatabase();
-
-        //****TESTE************************************
-//        db.execSQL(DROP_RECIPES);
-//        db.execSQL(DataTables.CREATE_RECIPES);
-//
-//        ContentValues cntValues = new ContentValues();
-//        cntValues.put(DataTables.RECIPES.TITLE, "Beef Hamburger");
-//        cntValues.put(DataTables.RECIPES.CATEGORY, "1");
-//        cntValues.put(DataTables.RECIPES.INGREDIENTS, "Meat");
-//        cntValues.put(DataTables.RECIPES.DESCRIPTION, "All the tips and recipes you need for the perfect barbecue.");
-//        cntValues.put(DataTables.RECIPES.IMAGE, "storage/emulated/0/DCIM/Camera/IMG_20170820_224241855.jpg");
-//
-//        long idRecipe = db.insertOrThrow(DataTables.RECIPES.TABLE, null, cntValues);
 
         Cursor cursor = db.query(DataTables.RECIPES.TABLE, columns, whereClause, whereArgs, null, null, null);
 
